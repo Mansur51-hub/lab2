@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+enum type_of_machine {
+    Car,
+    Automobile,
+    Passenger,
+    Sedan,
+    Bus,
+    Track,
+    Coupe,
+    Hatchback,
+    Hybrid,
+    Minivan
+};
+
+typedef struct {
+    int x;
+    int y;
+} Coordinates;
+
+typedef struct {
+    int length;
+    Coordinates left_bottom;
+    Coordinates upper_right;
+} Square;
+
+int get_area_of_square(int length){
+    return length * length;
+}
+int get_length_of_square(Coordinates first, Coordinates second){
+    return abs(first.x - second.x);
+}
+
+void assert(Coordinates first, Coordinates second){
+    if(abs(first.x - second.x != abs(first.y - second.y))){
+        printf("it is not a square\n");
+        exit(0);
+    }
+}
+union {
+    unsigned int X;
+    struct {
+        unsigned int ready: 1;
+        unsigned int low_toner: 1;
+        unsigned int damaged_drum: 1;
+        unsigned int no_paper: 1;
+    } Bit;
+} Printer_status;
+int main() {
+    {
+        printf("%d\n", Bus);
+    }
+    {
+        Square new_square;
+        printf("Print\n"
+               "The lower left vertex of the square.\n"
+               "The upper right vertex of the square.\n");
+        scanf("%d %d %d %d", &new_square.left_bottom.x, &new_square.left_bottom.y, &new_square.upper_right.x, &new_square.upper_right.y);
+        assert(new_square.upper_right, new_square.left_bottom);
+        new_square.length = get_length_of_square(new_square.left_bottom, new_square.upper_right);
+        printf("The area of the square is %d\n", get_area_of_square(new_square.length));
+    }
+    {
+       printf("Print Status\n");
+       scanf("%x", &Printer_status.X);
+       printf("Ready %s\n", (Printer_status.Bit.ready ? "Yes" : "NO"));
+       printf("Low toner %s\n", (Printer_status.Bit.low_toner ? "Yes" : "NO"));
+       printf("Damaged drum %s\n", (Printer_status.Bit.damaged_drum ? "Yes" : "NO"));
+       printf("No paper %s\n", (Printer_status.Bit.no_paper ? "Yes" : "NO"));
+    }
+    return 0;
+}
