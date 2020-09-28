@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+const int array[] = {12, 13, 14, 15, 16, 17, 18, 19, 20};
+const int size = 9;
+
+int a[2][2], b[2][2], c[2][2];
+
+int getsum(int first, int second) {
+    int sum = 0;
+    for(int i = 0; i < 2; i++) sum += a[first][i] * b[i][second];
+    return sum;
+}
+int main() {
+    for(int i = 0; i < size; i++) printf("%d ", array[i]);
+    printf("\n");
+    int k = 0;
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 2; j++){
+            if(i == 1 && j == 0) a[i][j] = 0;
+            else a[i][j] = 1;
+        }
+    }
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 2; j++) {
+             if(j == 1) b[i][j] = 0;
+             else b[i][j] = i + 2;
+          }
+        }
+
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 2; j++){
+            c[i][j] = getsum(i, j);
+        }
+    }
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 2; j++){
+            printf("%d ", c[i][j]);
+        }
+        printf("\n");
+    }
+    return  0;
+
+}
