@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdbool.h>
+const int size = 100000;
+int main() {
+    // 1
+    int prime_number[size];
+    prime_number[0] = 2;
+    int current_size_of_array = 1;
+    int number;
+    scanf("%d", &number);
+    printf("2 ");
+    for(int i = 3; i <= number; i += 2){
+        bool ok = true;
+        for(int j = 0; j < current_size_of_array && prime_number[j] * prime_number[j] <= i; j++){
+            if(i % prime_number[j] == 0) {
+                ok = false;
+                break;
+            }
+        }
+        if(ok){
+            prime_number[current_size_of_array] = i;
+            current_size_of_array++;
+           printf("%d ", i);
+        }
+    }
+
+    //2
+
+    printf("\nPrint percentage rate and initial amount and number of month\n");
+    float percentage_rate, initial_amount, current_amount;
+    int number_of_month;
+    scanf("%f %f %d", &percentage_rate, &initial_amount, &number_of_month);
+    current_amount = initial_amount;
+    for(int i = 1; i <= number_of_month; i++){
+       current_amount *= (1.f + percentage_rate / (100.f * 12.f));
+       printf("Month %d current amount %f\n", i, current_amount);
+    }
+
+}
