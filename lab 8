@@ -1,0 +1,97 @@
+#include <stdio.h>
+
+const int size = 100;
+
+int get_size_of_string(char const string[]){
+    int current_size = 0;
+    while(string[current_size] != 0 && current_size < size) current_size++;
+    return current_size;
+}
+
+void work(char *first_s, const char *second_s, int size_){
+    for(int i = 0; i < size_; i++) {
+        *(first_s + i) = *(second_s + i);
+    }
+}
+
+void get_concatenation(const char *first_s, const char* second_s, int size_f, int size_s){
+    for(int i = 0; i < size_f; i++) printf("%c", *(first_s + i));
+    for(int j = 0; j < size_s; j++) printf("%c", *(second_s + j));
+    printf("\n");
+}
+
+void compare(const char *first_s, const char *second_s, int n){
+    for(int i = 0; i < n; i++){
+        if(*(first_s + i) > *(second_s + i)){
+            printf("First > Second\n");
+            return;
+        }
+        else if(*(first_s + i) < *(second_s + i)){
+            printf("First < Second\n");
+            return;
+        }
+    }
+    printf("First = Second\n");
+}
+
+void find (const char *string, const char c, const int size_){
+    for(int i = 0; i < size_; i++){
+        if(*(string + i) == c){
+            printf("We have %c in index %d\n", c, i + 1);
+            return;
+        }
+    }
+    printf("Sorry, we have not %c\n", c);
+}
+
+void count(const char *string_1, const char *string_2, const int size_1, const int size_2){
+    int sum = 0;
+    int count_of_letter[(int)('z' - 'a' + 1)];
+    for(int i = (int)'a'; i <= (int)('z'); i++) count_of_letter[i - (int)'a'] = 0;
+    for(int i = 0; i < size_2; i++){
+        count_of_letter[(int)(*(string_2 + i) - 'a')]++;
+    }
+    for(int i = 0; i < size_1; i++){
+        if(count_of_letter[(int)(*(string_1 + i) - 'a')] == 0){
+            sum++;
+        }
+    }
+    printf("Length is %d\n", sum);
+}
+
+int main() {
+
+    char first_string[size], second_string[size];
+    scanf("%s %s", first_string, second_string);
+    int size_first, size_second;
+    size_first = get_size_of_string(first_string);
+    size_second = get_size_of_string(second_string);
+
+    // 1
+
+    char new_string_first[size_first], new_string_second[size_second];
+    char *first_it = new_string_first;
+    char *second_it = new_string_second;
+    work(new_string_first, first_string, size_first);
+    work(new_string_second, second_string, size_second);
+    printf("Concatenation is ");
+    get_concatenation(first_it, second_it, size_first, size_second);
+
+    // 2
+
+    int n;
+    scanf("%d", &n);
+    compare(first_it, second_it, n);
+
+    //3
+
+    printf("Size of first string is %d Size of second string is %d\n", size_first, size_second);
+
+    //4
+
+    for(int i = 0; i < size_second; i++) find(first_it, *(second_it + i), size_first);
+
+    //5
+
+    count(first_it, second_it, size_first, size_second);
+}
