@@ -1,0 +1,9 @@
+#include <stdio.h>
+#include <math.h>
+int main() {
+    float fi;
+    scanf("%f", &fi);
+    float First_answer = (cosf(fi) + sinf(fi)) / (cosf(fi) - sinf(fi));
+    float  Second_answer = tanf(2 * fi) + (1  / cosf(2 * fi));
+    printf("%f %f\n", First_answer, Second_answer);
+}
