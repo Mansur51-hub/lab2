@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+int main() {
+    long first_number;
+    int byte = 16;
+    scanf("%ld", &first_number);
+    printf("%lo\n", first_number);
+    printf("%lx %lx\n", first_number, (first_number >> byte));
+    printf("%lx %lx\n", first_number, ~first_number);
+    long second_number;
+    scanf("%lx", &second_number);
+    printf("%lx", second_number & first_number);
+}
