@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <string.h>
+
+int get_sum(long long number) {
+    if (number == 0) return 0;
+    return (int) (number % 10) + get_sum(number / 10);
+}
+
+char ans[100];
+int size_of_array = 0;
+
+void change_string(char string[], int left_index, int right_index, int sost) {
+    if (right_index - left_index < 1) return;
+    if (sost == 0) {
+        ans[size_of_array] = string[left_index];
+        size_of_array++;
+        if (string[left_index] == ' ' || string[left_index] == '"' || string[left_index] == '(' ||
+            string[left_index] == '[') {
+            sost = 1;
+        }
+        change_string(string, left_index + 1, right_index, sost);
+    }
+    else {
+         if (string[left_index] != ' ') {
+            ans[size_of_array] = string[left_index];
+            size_of_array++;
+             if (string[left_index] == ' ' || string[left_index] == '"' || string[left_index] == '(' ||
+                 string[left_index] == '[') {
+                 sost = 1;
+             }
+             else sost = 0;
+        }
+        change_string(string, left_index + 1, right_index, sost);
+    }
+}
+
+int main() {
+    // 5
+
+    printf("Print your string\n");
+    char string[100];
+    gets(string);
+    int index = -1;
+    for (int i = 0; i < (int) strlen(string); i++) {
+        if (string[i] == '.') index = i;
+    }
+    if (index == -1) {
+        change_string(string, 0, (int) strlen(string), 0);
+    } else {
+        change_string(string, 0, index + 1, 0);
+    }
+    for (int i = 0; i < size_of_array; i++) printf("%c", ans[i]);
+
+    // 4
+    printf("\n");
+    long long number;
+    scanf("%lld", &number);
+    printf("Summary of number digits is %d\n", get_sum(number));
+    // 5
+    return 0;
+}
